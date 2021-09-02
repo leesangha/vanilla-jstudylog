@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="device=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script async>
+      const $app = document.querySelector("#app");
+
+      let state = {
+        items: ["item1", "item2", "item3", "item4"],
+      };
+      const setState = (newState) => {
+        state = { ...state, ...newState };
+        render();
+      };
+      const render = () => {
+        const { items } = state;
+        const word = `item${items.length + 1}`;
+        $app.innerHTML = `
+        <ul>
+          ${items.map((item) => `<li>${item}</li>`).join("")}
+        </ul>
+        <button id="append">추가</button>
+        `;
+
+        document.querySelector("#append").addEventListener("click", () => {
+          setState({ items: [...items, word] });
+        });
+      };
+
+      render();
+    </script>
+  </body>
+</html>
