@@ -1,6 +1,6 @@
 import Component from "../core/Components";
 
-export default class Itesm extends Component {
+export default class Items extends Component {
   setup() {
     this.$state = { items: ["item1", "item2"] };
   }
