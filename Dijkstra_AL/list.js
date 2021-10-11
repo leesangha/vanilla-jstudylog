@@ -7,13 +7,13 @@ const arr = [
   [INF, INF, 1, 1, 0, 2],
   [INF, INF, 5, INF, 2, 0],
 ];
-const isVisit = new Array(6).fill(false);
+const Visited = new Array(6).fill(false);
 
 const getMin = function (vertex) {
   let min = INF;
   let idx = 0;
   for (let i = 0; i < vertex.length; i++) {
-    if (min > vertex[i] && !isVisit[i]) {
+    if (min > vertex[i] && !Visited[i]) {
       min = vertex[i];
       idx = i;
     }
@@ -22,25 +22,23 @@ const getMin = function (vertex) {
 };
 
 const dist = function (start) {
-  let v = arr[start - 1];
-  let count = 0;
-  let end = v.length;
+  let status = arr[start - 1];
+  let current = arr[start - 1];
   let min = 0;
-  let startV = v;
-  isVisit[start - 1] = true;
+  Visited[start - 1] = true;
 
-  while (count < end) {
-    const idx = getMin(startV);
-    min += startV[idx];
-    const next = arr[idx];
-    for (let i = 0; i < v.length; i++) {
-      if (v[i] > next[i] + min && !isVisit[i]) v[i] = next[i] + min;
-    }
-    startV = arr[idx];
-    isVisit[idx] = true;
-    count++;
+  for (let i = 0; i < arr.length; i++) {
+    let idx = getMin(current);
+    min += current[idx];
+    //min은 현재까지 사용한 비용
+    let next = arr[idx];
+    next.forEach((value, i) => {
+      if (status[i] > min + value && !Visited[i]) status[i] = min + value;
+    });
+    Visited[idx] = true;
+    current = next;
   }
-  console.log(v);
+  console.log(status);
 };
 
 const main = (function () {
