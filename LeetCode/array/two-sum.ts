@@ -1,4 +1,4 @@
-function twoSum(numbers: number[], target: number): number[] {
+function twoSum(numbers: number[], target: number) {
   // create a map as a method of key value storage for O(1) search / access
   // Array has an O(n) search-time, so we opt for the map
   const numberMap = new Map();
